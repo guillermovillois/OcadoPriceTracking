@@ -87,8 +87,9 @@ url = 'https://www.ocado.com/webshop/startWebshop.do'
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
-
-driver = webdriver.Chrome(ChromeDriverManager().install())
+chrome_options.add_argument('--log-level=3')
+driver = webdriver.Chrome(
+    ChromeDriverManager().install(), chrome_options=chrome_options)
 driver.get(url)
 # driver.refresh()
 

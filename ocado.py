@@ -1,5 +1,5 @@
 import time
-from .vars import base_url, scroll_page
+from vars import base_url, scroll_page
 import json
 
 import requests
@@ -82,7 +82,6 @@ for url in url_cat:
     subcats = []
     for each in driver.find_element_by_class_name('grocery-section').find_elements_by_class_name('level-item-link'):
         subcats.append(each.get_attribute('href'))
-        # print(each.get_attribute('href'),each.get_attribute('text'))
 
     subcategory = {}
     for url in subcats:
@@ -90,13 +89,11 @@ for url in url_cat:
         subcategory[scrape[1]] = scrape[2]
         products_scraped += scrape[3]
         categ = scrape[0]
-    categories[categ] = subcategory
+    # export each category to a json file
+    with open(categ + '.json', 'w') as json_file:
+        json.dump(subcategory, json_file)
 
 print('Total products scraped: ' + str(products_scraped))
 print("_--- %s minutes ---_" % (round(time.time() - start_time, 2)/60))
 
 driver.close()
-
-# export the dictionary into a json file
-with open('products.json', 'w') as json_file:
-    json.dump(categories, json_file)

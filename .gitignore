@@ -3,3 +3,5 @@ Ocado.ipynb
 debug.log
 vars.py
 products.txt
+*.json
+__pycache__
